@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project default="init" name="Abomination">
+<description>
+A simple project introducing the use of descriptive tags in Ant build files.
+</description>
+<target name="properties">
+	<property file="build.properties"/>
+</target>
+
+<target name="init" depends="properties">
+	<mkdir dir="${build.dir}"/>
+	<mkdir dir="${classes}"/>
+	<mkdir dir="${dist.dir}"/>
+	<mkdir dir="${lib.dir}"/>
+</target>
+	
+<target name="compile" depends="init">
+	<javac srcdir="${src.dir}" destdir="${classes}" classpath="${lib.dir}"/>
+</target>
+	
+<target name="clean">
+	<echo>Cleaning the ${build.dir} and ${dist.dir}</echo>
+	<delete dir="${build.dir}"/>
+	<delete dir="${dist.dir}"/>
+</target>
+	
+</project>
