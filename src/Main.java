@@ -42,13 +42,13 @@ public class Main {
 				String message = new String(delivery.getBody());
 				System.out.println(" [x] Received '" + message + "'");
 
-				//EL DANGEROUSO. Don't just split naively. Don't just trust any filename or classname.
+				//EL DANGEROUSO. Don't just trust any filename or classname.
 				JSONObject obj = parse(message);
 				String submissionId = (String) obj.get("id");
 				String fileName = (String) obj.get("file");
 				String solverClass = (String) obj.get("puzzle");
 
-				// Use fixed thread pool so we don't get overloaded at high request rates
+				// Use fixed thread pool so we don't spawn shit-tons of threads at high request rates
 				ExecutorService threadService = Executors.newFixedThreadPool(40);
 				threadService.execute(new ScriptRunner(fileName, solverClass, submissionId));
 			}

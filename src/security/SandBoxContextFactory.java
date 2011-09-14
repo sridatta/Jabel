@@ -1,7 +1,10 @@
 package security;
+import java.util.concurrent.TimeoutException;
+
 import org.mozilla.javascript.ClassShutter;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
+import org.mozilla.javascript.EcmaError;
 
 class SandboxContextFactory extends ContextFactory {
 	
@@ -29,7 +32,7 @@ class SandboxContextFactory extends ContextFactory {
 	        // it is time to stop the script.
 	        // Throw Error instance to ensure that script will never
 	        // get control back through catch or finally.
-	        throw new Error();
+	        throw new Error("Javascript execution timed out");
 	      }
 	    }
 

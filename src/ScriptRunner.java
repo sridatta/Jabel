@@ -91,11 +91,18 @@ public class ScriptRunner implements Runnable{
 		} catch (EcmaError e){
 			boolean hackAttempt = e.getErrorMessage().contains("JavaPackage");
 			if(hackAttempt) {
+				// Fuck off, hater
 				result.put("hack", hackAttempt);
 			} else {
 				result.put("errorLine", e.lineNumber());
 				result.put("errorMessage", e.getErrorMessage());
 			}
+		} catch(EvaluatorException e){
+			result.put("errorLine", e.getLineNumber());
+			result.put("errorMessage", e.getMessage());
+		} catch(Error e){
+			result.put("errorLine", 0);
+			result.put("errorMessage", e.getMessage());
 		} finally {
             // Exit from the context.
             Context.exit();
